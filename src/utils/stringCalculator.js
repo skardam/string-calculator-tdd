@@ -4,9 +4,5 @@ export function add(numbers) {
   }
 
   const nums = numbers.split(",");
-  if (nums.length === 1) {
-    return parseInt(nums[0]);
-  }
-
-  return parseInt(nums[0]) + parseInt(nums[1]);
+  return nums.reduce((sum, num) => sum + parseInt(num), 0);
 }

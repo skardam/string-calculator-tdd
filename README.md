@@ -1,5 +1,27 @@
 # Getting Started with Create React App
 
+# String Calculator TDD with React UI
+
+This project implements the String Calculator TDD with a React-based user interface. The calculator can add numbers provided as a string, handling various delimiters and special cases.
+
+## Features
+
+- Add numbers provided as a comma-separated string
+- Handle newline characters as delimiters
+- Support custom delimiters using the format `//[delimiter]\n[numbers]`
+- Detect and report negative numbers
+
+## Development Approach
+
+This project was developed following Test-Driven Development (TDD) principles:
+
+1. Write a failing test first
+2. Implement the minimum code to pass the test
+3. Refactor the code while keeping tests passing
+4. Repeat for the next requirement
+
+The commit history documents this incremental approach, showing the step-by-step evolution of the solution.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

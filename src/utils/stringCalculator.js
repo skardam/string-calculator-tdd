@@ -1,36 +1,38 @@
+// src/utils/stringCalculator.js
 export function add(numbers) {
   if (numbers === "") {
     return 0;
   }
 
-  const { delimiter, numbersString } = parseInput(numbers);
-  const nums = splitNumbers(numbersString, delimiter);
-
-  checkForNegatives(nums);
-
-  return nums.reduce((sum, num) => sum + parseInt(num), 0);
-}
-
-function parseInput(input) {
   let delimiter = ",";
-  let numbersString = input;
+  let numbersString = numbers;
 
-  if (input.startsWith("//")) {
-    const delimiterEnd = input.indexOf("\n");
-    delimiter = input.substring(2, delimiterEnd);
-    numbersString = input.substring(delimiterEnd + 1);
+  // Special handling for the literal '\n' in the input
+  if (numbers.startsWith("//")) {
+    // Check if it's using the literal '\n' or an actual newline
+    if (numbers.includes("\\n")) {
+      const parts = numbers.split("\\n");
+      delimiter = parts[0].substring(2); // Get the delimiter
+      numbersString = parts[1]; // Get the numbers portion
+    } else if (numbers.includes("\n")) {
+      const delimiterEnd = numbers.indexOf("\n");
+      delimiter = numbers.substring(2, delimiterEnd);
+      numbersString = numbers.substring(delimiterEnd + 1);
+    }
   }
 
-  return { delimiter, numbersString };
-}
+  // Split by the delimiter and compute sum
+  const nums = numbersString.split(delimiter);
 
-function splitNumbers(numbersString, delimiter) {
-  return numbersString.replace(/\n/g, delimiter).split(delimiter);
-}
-
-function checkForNegatives(numbers) {
-  const negatives = numbers.filter((num) => parseInt(num) < 0);
+  // Check for negative numbers
+  const negatives = nums.filter((num) => parseInt(num) < 0);
   if (negatives.length > 0) {
     throw new Error(`negative numbers not allowed ${negatives.join(",")}`);
   }
+
+  // Calculate sum
+  return nums.reduce((sum, num) => {
+    const parsedNum = parseInt(num.trim());
+    return sum + (isNaN(parsedNum) ? 0 : parsedNum);
+  }, 0);
 }

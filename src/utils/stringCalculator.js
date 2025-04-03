@@ -4,7 +4,7 @@ export function add(numbers) {
     return 0;
   }
 
-  let delimiter = ",";
+  let delimiter = /,|\n/;
   let numbersString = numbers;
 
   // Special handling for the literal '\n' in the input
@@ -23,6 +23,8 @@ export function add(numbers) {
 
   // Split by the delimiter and compute sum
   const nums = numbersString.split(delimiter);
+
+  console.log("nums", nums);
 
   // Check for negative numbers
   const negatives = nums.filter((num) => parseInt(num) < 0);
